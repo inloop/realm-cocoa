@@ -22,6 +22,10 @@ x.x.x Release notes (yyyy-MM-dd)
   service indicates that their credential is no longer valid.
 * Address high CPU usage and hangs in certain cases when processing collection
   notifications in highly-connected object graphs.
+* The keychain service name used by Realm to manage the encryption keys for
+  sync-related metadata is now set to the bundle identifier. Keys that were
+  previously stored within the Realm-specific keychain service will be
+  transparently migrated to the per-application keychain service.
 
 2.9.1 Release notes (2017-08-01)
 =============================================================

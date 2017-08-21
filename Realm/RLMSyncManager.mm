@@ -109,7 +109,11 @@ static dispatch_once_t s_onceToken;
         bool should_encrypt = !getenv("REALM_DISABLE_METADATA_ENCRYPTION") && !RLMIsRunningInPlayground();
         auto mode = should_encrypt ? SyncManager::MetadataMode::Encryption : SyncManager::MetadataMode::NoEncryption;
         rootDirectory = rootDirectory ?: [NSURL fileURLWithPath:RLMDefaultDirectoryForBundleIdentifier(nil)];
-        SyncManager::shared().configure_file_system(rootDirectory.path.UTF8String, mode, none, true);
+        util::Optional<std::string> service;
+        if (auto bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier]) {
+            service = util::make_optional<std::string>([bundleIdentifier UTF8String]);
+        }
+        SyncManager::shared().configure_file_system(rootDirectory.path.UTF8String, mode, none, true, service);
         return self;
     }
     return nil;
