@@ -1061,7 +1061,7 @@ KeyPath key_path_from_string(RLMSchema *schema, RLMObjectSchema *objectSchema, N
                         @"Property '%@' not found in object of type '%@'",
                         propertyName, objectSchema.className);
 
-        if (property.array || property.type == RLMPropertyTypeLinkingObjects)
+        if (property.array)
             keyPathContainsToManyRelationship = true;
 
         if (end != NSNotFound) {
